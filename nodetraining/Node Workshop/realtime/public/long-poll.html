@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8 />
+<title>Long polling test</title>
+</head>
+<body>
+  <p>Random value from server: <span id="out">[waiting for response]</span></p>
+<script src="jquery.min.js"></script>
+<script>
+var $out = $('#out');
+
+function getValue() {
+  $.getJSON('/rand', function (rand) {
+    $out.text(rand);
+    getValue(); // loop
+  });  
+}
+
+getValue();
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8 />
+<title>Event source demo</title>
+</head>
+<body>
+<p>open your console</p>
+<script src="jquery.min.js"></script>
+<script>
+var es = new EventSource('/sse');
+es.onopen = function () {
+  console.log('CONNECTED');
+};
+
+es.onmessage = function (event) {
+  console.log('MESSAGE: ' + event.data, event);
+};
+
+// no close event
+
+es.onerror = function (event) {
+  console.log('ERROR (probably closed)');
+}
+
+function send(message) {
+  $.ajax({
+    url: '/send',
+    type: 'post',
+    data: 'message=' + message
+  });
+}
+</script>
+</body>
+</html>

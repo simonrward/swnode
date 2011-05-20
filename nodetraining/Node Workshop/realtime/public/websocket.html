@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8 />
+<title>Hello world</title>
+</head>
+<body>
+<p>You'll want to open the console</p>
+<script>
+var ws = new WebSocket('ws://' + location.host);
+ws.onopen = function () {
+  console.log('CONNECTED');
+  ws.send('count'); // get the connected count
+  ws.send('Hello world!');
+};
+
+ws.onmessage = function (event) {
+  console.log('MESSAGE: ' + event.data);
+};
+
+ws.onclose = function () {
+  console.log('CLOSED');
+};
+
+
+</script>
+</body>
+</html>
